@@ -1,0 +1,99 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           windows
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/windows#readme>
+homepage:       https://github.com/githubuser/windows#readme
+bug-reports:    https://github.com/githubuser/windows/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2022 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/windows
+
+library
+  exposed-modules:
+      Color
+      Draw
+      Graph
+      MST
+      Random
+      RectangleData
+      Rectangulation
+      String
+      Thing
+      Window
+  other-modules:
+      Paths_windows
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      X11
+    , array
+    , base >=4.7 && <5
+    , containers
+    , extra
+    , lens
+    , monad-loops
+    , mtl
+    , random
+    , transformers
+    , utility-ht
+  default-language: Haskell2010
+
+executable windows-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_windows
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      X11
+    , array
+    , base >=4.7 && <5
+    , containers
+    , extra
+    , lens
+    , mtl
+    , transformers
+    , utility-ht
+    , windows
+  default-language: Haskell2010
+
+test-suite windows-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_windows
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HUnit
+    , X11
+    , array
+    , base >=4.7 && <5
+    , containers
+    , extra
+    , hspec
+    , hspec-contrib
+    , lens
+    , mtl
+    , transformers
+    , utility-ht
+    , windows
+  default-language: Haskell2010
