@@ -1,6 +1,7 @@
 {-# LANGUAGE TupleSections #-}
 
 module Graph (
+  DrawableRect,
   reduce,
   invert,
   getDrawables

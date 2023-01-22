@@ -1,6 +1,9 @@
+{-# LANGUAGE TupleSections #-}
+
 module Random
     ( makeRandomColors,
       getRandomRect,
+      getRandomRectangulation,
       getRandomLine,
       getRandomMultiSegmentLine,
       getRandomMultiSegmentRectilinearLine,
@@ -11,15 +14,20 @@ import Prelude hiding(repeat)
 
 import Data.Word (Word8)
 import Data.List (intercalate)
+import Data.Map (assocs)
 import Graphics.X11.Xlib (Display, Pixel, Dimension)
 import Numeric
 import System.Random
-import Control.Monad (replicateM)
+import Control.Monad (replicateM, replicateM_)
 import Control.Monad.State.Lazy(MonadIO, liftIO)
+import Control.Monad.Trans.State.Lazy(StateT, evalStateT)
 
 import Color (initColor)
 import String (padLeft)
 import Draw (Graphical, Coord, rectangle, line, point)
+import RectangleData (Rectangulation)
+import Rectangulation (initialRectangulation, getCandidateInsertions, insertRectangle)
+import Graph (DrawableRect, getDrawables)
 
 getRandomElem :: MonadIO m => [t] -> m t
 getRandomElem xs = do
@@ -80,3 +88,19 @@ getRandomCoord width height = do
   x <- randomRIO (0, fromIntegral width)
   y <- randomRIO (0, fromIntegral height)
   return (x, y)
+
+getRandomRectangulation :: Int -> IO [DrawableRect]
+getRandomRectangulation numRects = evalStateT (
+  do
+    replicateM_ numRects step
+    getDrawables
+  ) initialRectangulation
+
+type Op = StateT Rectangulation IO
+
+step :: Op()
+step = do
+  vs <- getCandidateInsertions
+  let vs' = concatMap (\(d, vs) -> map (d,) vs) $ assocs vs
+  (d, v) <- getRandomElem vs'
+  insertRectangle d v

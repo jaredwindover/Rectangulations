@@ -1,7 +1,7 @@
 -- {-# LANGUAGE TypeSynonymInstances #-}
 -- {-# LANGUAGE FlexibleInstances #-}
 
-module Draw (draw, drawAll, rectangle, line, point, Graphical, Coord) where
+module Draw (draw, drawAll, rectangle, line, point, Graphical, Coord, Rectangle) where
 
 import Graphics.X11.Xlib (
   setForeground,
